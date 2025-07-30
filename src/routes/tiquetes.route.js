@@ -1,27 +1,22 @@
 import express from 'express';
+import {
+  crearTiquete,
+  actualizarEstadoTiquete,
+  agregarComentario,
+  obtenerTiquetesAgrupadosPorEstado,
+} from '../controllers/tiquetes.js';
 
 const router = express.Router();
-// Inicio de Sesión
-// router.post('/login', login);
-// // Registro de Usuario
-// router.post('/registro', registro);
-// // crear rol
-// router.post('/rol', authenticate, createRole);
-// // crear permiso
-// router.post('/permiso', authenticate, createPermission);
-// // obtener roles
-// router.get('/roles', getAllRoles);
-// // obtener permisos
-// router.get('/permisos', getAllPermissions);
-// // asignar rol a usuario
-// router.post('/asignar-rol', authenticate, assignRoleToUser);
-// // asignar permiso a rol
-// router.post('/asignar-permiso', authenticate, assignPermissionToRole);
-// // modificar rol de usuario
-// router.patch('/modificar-rol', authenticate, modifyUserRole);
-// // modificar permiso de rol
-// router.patch('/modificar-permiso', authenticate, modifyRolePermission);
-// // modificar permiso de rol
-// router.patch('/cambiarPassword', authenticate, changePassword);
+
+// Crear un nuevo tiquete (por cliente)
+router.post('/', crearTiquete);
+
+// Actualizar el estado del tiquete (por técnico de soporte)
+router.patch('/:id/estado', actualizarEstadoTiquete);
+
+// Agregar un comentario a un tiquete (cliente o técnico)
+router.post('/:id/comentario', agregarComentario);
+
+router.get('/', obtenerTiquetesAgrupadosPorEstado);
 
 export default router;

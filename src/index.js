@@ -4,6 +4,7 @@ import cors from 'cors';
 import { db_connection } from './config/database.js';
 import { API_URL } from './common/strings.js';
 import securityRoutes from "./routes/seguridad.route.js"
+import ticketsRoutes from "./routes/tiquetes.route.js"
 
 dotenv.config();
 
@@ -21,12 +22,7 @@ app.use(
 );
 
 app.use(`${API_URL}/auth`, securityRoutes);
-// app.use(`${API_URL}/usuarios`, userRoutes);
-// app.use(`${API_URL}/estados`, statusRoutes);
-// app.use(`${API_URL}/proyectos`, projectRoutes);
-// app.use(`${API_URL}/tareas`, taskRoutes);
-// app.use(`${API_URL}/recursos`, resourcesRoutes);
-// app.use(`${API_URL}/reportes`, reportesRoutes);
+app.use(`${API_URL}/ticket`, ticketsRoutes);
 
 // import('./hooks/eventTracker.js');
 
