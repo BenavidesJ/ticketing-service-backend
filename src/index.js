@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import { db_connection } from './config/database.js';
+import { API_URL } from './common/strings.js';
+import securityRoutes from "./routes/seguridad.route.js"
 
 dotenv.config();
 
@@ -18,7 +20,7 @@ app.use(
   })
 );
 
-// app.use(`${API_URL}/auth`, authRoutes);
+app.use(`${API_URL}/auth`, securityRoutes);
 // app.use(`${API_URL}/usuarios`, userRoutes);
 // app.use(`${API_URL}/estados`, statusRoutes);
 // app.use(`${API_URL}/proyectos`, projectRoutes);
