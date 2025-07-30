@@ -6,6 +6,5 @@ export const TipoUsuario = sequelize.define('tipoUsuario', {
   descripcionUsuario: DataTypes.STRING
 }, {
   tableName: 'tipoUsuario',
-  schema: 'sistemaTickets',
   timestamps: false
 });

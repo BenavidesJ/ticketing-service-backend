@@ -8,6 +8,5 @@ export const BitacoraEventos = sequelize.define('bitacoraEventos', {
   idUsuario: DataTypes.INTEGER
 }, {
   tableName: 'bitacoraEventos',
-  schema: 'sistemaTickets',
   timestamps: false
 });

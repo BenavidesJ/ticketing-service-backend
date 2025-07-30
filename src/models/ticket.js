@@ -16,6 +16,5 @@ export const Ticket = sequelize.define('ticket', {
   idDepartamento: DataTypes.INTEGER
 }, {
   tableName: 'ticket',
-  schema: 'sistemaTickets',
   timestamps: false
 });

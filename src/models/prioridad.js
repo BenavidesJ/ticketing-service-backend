@@ -6,6 +6,5 @@ export const Prioridad = sequelize.define('prioridad', {
   descripcionPrioridad: DataTypes.STRING
 }, {
   tableName: 'prioridad',
-  schema: 'sistemaTickets',
   timestamps: false
 });

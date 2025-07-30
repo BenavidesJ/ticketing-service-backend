@@ -11,23 +11,27 @@ import { Evento } from './evento.js';
 import { BitacoraEventos } from './bitacoraEventos.js';
 import { Comentarios } from './comentarios.js';
 
-// Relaciones
-Usuario.belongsTo(TipoUsuario, { foreignKey: 'tipoUsuario' });
-TipoUsuario.hasOne(Usuario, { foreignKey: 'tipoUsuario' });
+// Relaciones del modelo Usuario
+Usuario.belongsTo(TipoUsuario, { foreignKey: 'tipoUsuario', as: 'rolUsuario' });
+TipoUsuario.hasMany(Usuario, { foreignKey: 'tipoUsuario', as: 'usuarios' });
 
-Ticket.belongsTo(Usuario, { as: 'Soporte', foreignKey: 'idSoporte' });
-Ticket.belongsTo(Usuario, { as: 'Cliente', foreignKey: 'idCliente' });
-Ticket.belongsTo(Prioridad, { foreignKey: 'prioridad' });
-Ticket.belongsTo(Estado, { foreignKey: 'estado' });
-Ticket.belongsTo(TipoTicket, { foreignKey: 'tipoTicket' });
-Ticket.belongsTo(Departamento, { foreignKey: 'idDepartamento' });
+// Relaciones del modelo Ticket
+Ticket.belongsTo(Usuario, { foreignKey: 'idSoporte', as: 'soporteAsignado' });
+Ticket.belongsTo(Usuario, { foreignKey: 'idCliente', as: 'clienteReporta' });
+Ticket.belongsTo(Prioridad, { foreignKey: 'prioridad', as: 'nivelPrioridad' });
+Ticket.belongsTo(Estado, { foreignKey: 'estado', as: 'estadoTicket' });
+Ticket.belongsTo(TipoTicket, { foreignKey: 'tipoTicket', as: 'categoriaTicket' });
+Ticket.belongsTo(Departamento, { foreignKey: 'idDepartamento', as: 'departamentoAsignado' });
 
-BitacoraEventos.belongsTo(Usuario, { foreignKey: 'idUsuario' });
-BitacoraEventos.belongsTo(Evento, { foreignKey: 'evento' });
+// Relaciones de Bitácora de Eventos
+BitacoraEventos.belongsTo(Usuario, { foreignKey: 'idUsuario', as: 'usuarioResponsable' });
+BitacoraEventos.belongsTo(Evento, { foreignKey: 'evento', as: 'tipoEvento' });
 
-Comentarios.belongsTo(Usuario, { foreignKey: 'idAutor' });
-Comentarios.belongsTo(Ticket, { foreignKey: 'idTicket' });
+// Relaciones de Comentarios
+Comentarios.belongsTo(Usuario, { foreignKey: 'idAutor', as: 'autorComentario' });
+Comentarios.belongsTo(Ticket, { foreignKey: 'idTicket', as: 'ticketRelacionado' });
 
+// Exportar modelos y sequelize
 export {
   sequelize,
   Usuario,

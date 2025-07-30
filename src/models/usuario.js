@@ -2,11 +2,7 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
 
 export const Usuario = sequelize.define('usuario', {
-  idusuario: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
-  },
+  idusuario: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
   nombre: DataTypes.STRING,
   apellido1: DataTypes.STRING,
   apellido2: DataTypes.STRING,
@@ -17,6 +13,5 @@ export const Usuario = sequelize.define('usuario', {
   tipoUsuario: DataTypes.INTEGER
 }, {
   tableName: 'usuario',
-  schema: 'sistemaTickets',
   timestamps: false
 });

@@ -6,6 +6,5 @@ export const Evento = sequelize.define('evento', {
   descripcionEvento: DataTypes.STRING
 }, {
   tableName: 'evento',
-  schema: 'sistemaTickets',
   timestamps: false
 });

@@ -10,6 +10,5 @@ export const Comentarios = sequelize.define('comentarios', {
   activo: DataTypes.BOOLEAN
 }, {
   tableName: 'comentarios',
-  schema: 'sistemaTickets',
   timestamps: false
 });

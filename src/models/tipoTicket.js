@@ -6,6 +6,5 @@ export const TipoTicket = sequelize.define('tipoTicket', {
   descripcionTipo: DataTypes.STRING
 }, {
   tableName: 'tipoTicket',
-  schema: 'sistemaTickets',
   timestamps: false
 });

@@ -7,21 +7,11 @@ import { validPasswordRegex } from '../common/strings.js';
 
 dotenv.config();
 
-export const registro = async (req, res, next) => {
+export const registro = async (req, res) => {
   const { correo, password, nombre, apellido1, apellido2 } = req.body;
   try {
-    if (!correo || !password || !nombre || !apellido1 || !apellido2) {
+    if (!correo || !password || !nombre || !apellido1 || !apellido2 ) {
       throw new Error('Por favor, complete todos los campos.');
-    }
-
-    const userAlreadyExists = await Usuario.findOne({
-      where: {
-        correo,
-      },
-    });
-
-    if (userAlreadyExists) {
-      throw new Error('El usuario ingresado ya existe.');
     }
 
     if (!validPasswordRegex.test(password) && password.length <= 6) {
@@ -38,11 +28,11 @@ export const registro = async (req, res, next) => {
       nombre,
       apellido1,
       apellido2,
-      activo: true,
+      activo: 1,
       fechaCreacion: new Date().toISOString(),
-      tipoUsuario: 0
+      tipoUsuario: 1
     });
-
+    
     const access_token = generateJWT(user.correo);
 
     return res.status(201).json({
@@ -67,7 +57,7 @@ export const registro = async (req, res, next) => {
   }
 };
 
-export const login = async (req, res, next) => {
+export const login = async (req, res) => {
   const { correo, password } = req.body;
   try {
     if (!correo || !password) {

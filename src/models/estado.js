@@ -6,6 +6,5 @@ export const Estado = sequelize.define('estado', {
   descripcionEstado: DataTypes.STRING
 }, {
   tableName: 'estado',
-  schema: 'sistemaTickets',
   timestamps: false
 });

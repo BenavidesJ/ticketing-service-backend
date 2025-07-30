@@ -6,6 +6,5 @@ export const Departamento = sequelize.define('departamento', {
   descripcionDepartamento: DataTypes.STRING
 }, {
   tableName: 'departamento',
-  schema: 'sistemaTickets',
   timestamps: false
 });
