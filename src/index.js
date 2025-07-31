@@ -5,6 +5,7 @@ import { db_connection } from './config/database.js';
 import { API_URL } from './common/strings.js';
 import securityRoutes from "./routes/seguridad.route.js"
 import ticketsRoutes from "./routes/tiquetes.route.js"
+import estadoRoutes from "./routes/estado.route.js";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(`${API_URL}/auth`, securityRoutes);
 app.use(`${API_URL}/ticket`, ticketsRoutes);
+app.use(`${API_URL}/estado`, estadoRoutes);
 
 // import('./hooks/eventTracker.js');
 
