@@ -33,7 +33,7 @@ export const registro = async (req, res) => {
       tipoUsuario: 1
     });
     
-    const access_token = generateJWT(user.correo);
+    const access_token = generateJWT(user);
 
     return res.status(201).json({
       success: true,
@@ -87,7 +87,7 @@ export const login = async (req, res) => {
       success: true,
       message: 'Sesión iniciada correctamente.',
       data: {
-        idUsuario: user.idUsuario,
+        idUsuario: user.idusuario,
         Nombre: user.nombre,
         Apellido1: user.apellido1,
         Apellido2: user.apellido2,

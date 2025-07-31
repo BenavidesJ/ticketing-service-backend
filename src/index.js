@@ -11,8 +11,6 @@ dotenv.config();
 const app = express();
 const port = process.env.APP_PORT;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
@@ -20,6 +18,8 @@ app.use(
     origin: process.env.CLIENT_URL,
   })
 );
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(`${API_URL}/auth`, securityRoutes);
 app.use(`${API_URL}/ticket`, ticketsRoutes);

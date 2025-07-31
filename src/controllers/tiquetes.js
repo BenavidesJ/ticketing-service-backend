@@ -1,13 +1,13 @@
-import { Ticket, Comentarios } from "../models/index.js";
+import { Ticket, Estado, Comentarios } from "../models/index.js";
 
 export const crearTiquete = async (req, res) => {
+  console.log('Tipo de req.body:', typeof req.body, 'Contenido:', req.body);
   try {
     const { titulo, descripcion, tipoTicket, prioridad, idDepartamento, idCliente, idSoporte } = req.body;
 
     if (!titulo || !descripcion || !tipoTicket || !prioridad || !idDepartamento || !idCliente || !idSoporte) {
       return res.status(400).json({ success: false, message: "Todos los campos son obligatorios" });
     }
-
     const nuevoTiquete = await Ticket.create({
       titulo,
       descripcion,
@@ -81,6 +81,16 @@ export const agregarComentario = async (req, res) => {
 
 export const obtenerTiquetesAgrupadosPorEstado = async (_req, res) => {
   try {
+
+    const estados = await Estado.findAll();
+
+
+    const agrupado = {};
+    estados.forEach(e => {
+      agrupado[e.descripcionEstado] = [];
+    });
+
+
     const tickets = await Ticket.findAll({
       include: [
         { association: 'estadoTicket' },
@@ -93,17 +103,18 @@ export const obtenerTiquetesAgrupadosPorEstado = async (_req, res) => {
       order: [['fechaCreacion', 'DESC']]
     });
 
-    const agrupado = {};
 
     tickets.forEach(ticket => {
-      const estado = ticket.estadoTicket?.descripcionEstado || 'Desconocido';
-      if (!agrupado[estado]) agrupado[estado] = [];
-      agrupado[estado].push(ticket);
+      const estadoNombre = ticket.estadoTicket?.descripcionEstado || 'Desconocido';
+      if (!agrupado[estadoNombre]) {
+        agrupado[estadoNombre] = []; 
+      }
+      agrupado[estadoNombre].push(ticket);
     });
 
-    res.json({ success: true, data: agrupado });
+    return res.status(200).json({ success: true, data: agrupado });
   } catch (error) {
     console.error('Error al obtener tickets agrupados:', error);
-    res.status(500).json({ success: false, message: 'Error interno del servidor' });
+    return res.status(500).json({ success: false, message: 'Error interno del servidor' });
   }
 };
