@@ -118,3 +118,39 @@ export const obtenerTiquetesAgrupadosPorEstado = async (_req, res) => {
     return res.status(500).json({ success: false, message: 'Error interno del servidor' });
   }
 };
+
+// Obtener todos los comentarios de un tiquete
+export const obtenerComentariosDeTiquete = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const ticketId = Number(id);
+    if (!Number.isInteger(ticketId) || ticketId <= 0) {
+      return res.status(400).json({ success: false, message: "Parámetro 'id' inválido" });
+    }
+
+    // Verificar que el ticket exista
+    const ticket = await Ticket.findByPk(ticketId);
+    if (!ticket) {
+      return res.status(404).json({ success: false, message: "Tiquete no encontrado" });
+    }
+
+    // Traer comentarios activos del ticket con info básica del autor
+    const comentarios = await Comentarios.findAll({
+      where: { idTicket: ticketId, activo: true },
+      attributes: ['idcomentarios', 'comentario', 'idAutor', 'fechaCreacion', 'activo'],
+      include: [
+        {
+          association: 'autorComentario',
+          attributes: ['idusuario', 'nombre', 'apellido1', 'apellido2', 'correo'],
+        },
+      ],
+      order: [['fechaCreacion', 'ASC']],
+    });
+
+    return res.status(200).json({ success: true, data: comentarios });
+  } catch (error) {
+    console.error("Error al obtener comentarios del tiquete:", error);
+    return res.status(500).json({ success: false, message: "Error interno del servidor" });
+  }
+};

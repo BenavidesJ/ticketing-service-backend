@@ -4,6 +4,7 @@ import {
   actualizarEstadoTiquete,
   agregarComentario,
   obtenerTiquetesAgrupadosPorEstado,
+  obtenerComentariosDeTiquete,
 } from '../controllers/tiquetes.js';
 
 const router = express.Router();
@@ -16,6 +17,8 @@ router.patch('/:id/estado', actualizarEstadoTiquete);
 
 // Agregar un comentario a un tiquete (cliente o técnico)
 router.post('/:id/comentario', agregarComentario);
+
+router.get('/:id/comentarios', obtenerComentariosDeTiquete);
 
 router.get('/', obtenerTiquetesAgrupadosPorEstado);
 
